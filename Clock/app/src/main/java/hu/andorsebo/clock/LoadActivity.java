@@ -26,9 +26,7 @@ public class LoadActivity extends AppCompatActivity {
         t1 = new Thread(new Runnable() {
             @Override
             public void run() {
-                ArrayList<String> temp = GetParams();
-                for (int i=0;i<temp.size();i++)
-                    params.add(temp.get(i));
+                params.addAll(GetParams());
             }
         });
         t1.start();
@@ -53,12 +51,12 @@ public class LoadActivity extends AppCompatActivity {
         t3 = new Thread(new Runnable() {
             @Override
             public void run() {
-                SharedPreferences prefs = ctx.getSharedPreferences("hu.andorsebo.clock",Context.MODE_PRIVATE);
-                String temp = prefs.getString("szamok",null);
+                SharedPreferences prefs = ctx.getSharedPreferences("hu.andorsebo.clock", Context.MODE_PRIVATE);
+                String temp = prefs.getString("szamok", null);
                 if (temp == null) {
-                    Log.d("Loaded","Fail");
+                    Log.d("Loaded", "Fail");
                 } else {
-                    Log.d("Loaded",temp);
+                    Log.d("Loaded", temp);
                 }
             }
         });
@@ -71,7 +69,7 @@ public class LoadActivity extends AppCompatActivity {
         try {
             t3.join();
         } catch (InterruptedException e) {
-            Log.d("T3 ERROR",e.getMessage());
+            Log.d("T3 ERROR", e.getMessage());
         }
 
     }
@@ -97,7 +95,7 @@ public class LoadActivity extends AppCompatActivity {
             try {
                 t1.join();
             } catch (InterruptedException e1) {
-                Log.d("T1 Generate",e1.getMessage());
+                Log.d("T1 Generate", e1.getMessage());
             }
             params = GetParams();
         }
@@ -119,7 +117,7 @@ public class LoadActivity extends AppCompatActivity {
             File file = new File(root, "clock_config.txt");
             FileWriter writer = new FileWriter(file);
             for (int i = 0; i < params.size(); i++)
-                writer.append(params.get(i)+"\n");
+                writer.append(params.get(i) + "\n");
             writer.flush();
             writer.close();
         } catch (IOException e) {
